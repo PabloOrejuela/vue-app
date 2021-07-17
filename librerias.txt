@@ -1,0 +1,11 @@
+#Para las rutas
+vue-router
+
+#para validar forms
+vuelidate
+
+#Para usar AJAX
+axios
+
+#para las Fechas
+vue-moment
