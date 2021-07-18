@@ -18,6 +18,7 @@ import Search  from './components/Search.vue';
 import Redirect from './components/Redirect.vue';
 import Article from './components/Article.vue';
 import CreateArticle from './components/CreateArticle.vue';
+import EditArticle from './components/EditArticle.vue';
 
 
 
@@ -36,6 +37,7 @@ const routes = [
   { path: '/home', component: LastArticles },
   { path: '/blog', component: Blog },
   { path: '/articulo/:id', name: 'article', component: Article },
+  { path: '/editar/:id', name: 'edit', component: EditArticle },
   { path: '/formulario', component: Formulario },
   { path: '/pagina/:id?', name: 'pagina',component: Pagina },
   { path: '/ultimos-articulos', component: LastArticles},
@@ -43,7 +45,7 @@ const routes = [
   { path: '/peliculas', name: 'peliculas',component: Peliculas },
   { path: '/', component: LastArticles },
   { path: '*', component: ErrorComponent},
-  { path: '/buscardor/:searchString', component: Search},
+  { path: '/buscador/:searchString', component: Search},
   { path: '/redirect/:searchString', component: Redirect},
   { path: '/crear-articulo', name: 'create', component: CreateArticle }
 ];

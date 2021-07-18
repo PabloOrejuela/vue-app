@@ -1,29 +1,4 @@
-<template>
-  <div class="general">
-    <div class="center">
-      <section id="content">
-        <article class="article-item article-detail" v-if="article">
-          <div class="image-wrap" v-if="article.image">
-            <img
-              :src="url + 'get-image/' + article.image"
-              :alt="article.title"
-            />
-          </div>
-          <h1 class="subheader">{{ article.title }}</h1>
-          <span class="date">
-            {{ article.date | moment("from", "now") }}
-          </span>
-          <p>
-            {{ article.content }}
-          </p>
-          <div class="clear-fix"></div>
-        </article>
-      </section>
-      <SideBar></SideBar>
-      <div class="clear-fix"></div>
-    </div>
-  </div>
-</template>
+<template src="../vistas/article.html"></template>
 
 <script>
 import SideBar from "./SideBar.vue";
@@ -52,7 +27,7 @@ export default {
           this.article = res.data.article;
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
