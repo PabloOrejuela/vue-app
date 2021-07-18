@@ -17,7 +17,7 @@
           </p>
           <div class="clear-fix"></div>
           <router-link :to="'/editar/' + article._id" class="btn btn-warning">Editar Arículo</router-link>
-          <router-link to="/eliminar" class="btn btn-danger">Eliminar Artículo</router-link>
+          <a @click="deleteArticle(article._id)" class="btn btn-danger">Eliminar Artículo</a>
         </article>
       </section>
       <SideBar></SideBar>

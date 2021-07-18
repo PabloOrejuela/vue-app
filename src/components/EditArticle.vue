@@ -5,12 +5,12 @@ import Global from "../Global";
 import Article from "../models/Article";
 import axios from "axios";
 import { required } from "vuelidate/lib/validators";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 export default {
   name: "EditArticle",
   components: {
-    SideBar
+    SideBar,
   },
   data() {
     return {
@@ -18,30 +18,30 @@ export default {
       file: "",
       article: new Article("", "", null, ""),
       submited: false,
-      isEdit : true
+      isEdit: true,
     };
   },
   validations: {
     article: {
       title: {
-        required
+        required,
       },
       content: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   mounted() {
-      var articleId = this.$route.params.id;
-      this.getArticle(articleId);
+    var articleId = this.$route.params.id;
+    this.getArticle(articleId);
   },
   methods: {
-    fileChange(){
+    fileChange() {
       this.file = this.$refs.file.files[0];
       //console.log(this.file);
     },
     getArticle(articleId) {
-      axios.get(this.url + "article/" + articleId).then(res => {
+      axios.get(this.url + "article/" + articleId).then((res) => {
         if (res.data.status == "success") {
           this.article = res.data.article;
         }
@@ -49,70 +49,64 @@ export default {
     },
     save() {
       this.submited = true;
+      var articleId = this.$route.params.id;
 
       this.$v.$touch();
       if (this.$v.$invalid) {
         return false;
       } else {
-
         axios
-          .post(this.url + "save", this.article)
-          .then(response => {
+          .put(this.url + "article/" + articleId, this.article)
+          .then((response) => {
             if (response.data.status == "success") {
-              
               //subida de archivo
               if (
-                this.file != null && 
-                this.file != 'undefined' && 
+                this.file != null &&
+                this.file != "undefined" &&
                 this.file != ""
               ) {
-
-
-              const formData = new FormData();
-              formData.append(
-                "file0",
-                this.file,
-                this.file.name
-              );
-              var articleId = response.data.article._id;
-
-              axios.post(this.url + "upload-image/" + articleId, formData)
-                   .then(response => {
-                     if (response.data.article) {
-                       swal(
-                        'Artículo creado' ,
-                        'El artículo se ha creado correctamente',
-                        'success'
-                       );
-                       this.article = response.data.article;
-                       this.$router.push("/blog");
-                     }else{
-                       swal(
-                        'Artículo no se a creado bien' ,
-                        'Ha habido un error en la creación del artículo',
-                        'error'
-                       );
-                     }
-                   }).catch(error => {
-                     console.log('ERROR: '+error);
-                   });
-                }else{
-
-                  swal(
-                    'Artículo creado' ,
-                    'El artículo se ha creado correctamente 2',
-                    'success'
-                  );
-                  this.article = response.data.article;
-                  this.$router.push("/blog");
-                }
+                const formData = new FormData();
+                formData.append("file0", this.file, this.file.name);
+                var articleId = response.data.article._id;
+//PABLO: No sube imagenes en la edición y no redirige, hay que revisar esto
+                axios
+                  .post(this.url + "upload-image/" + articleId, formData)
+                  .then((response) => {
+                    if (response.data.article) {
+                      swal(
+                        "Artículo Editado",
+                        "El artículo se ha editado correctamente",
+                        "success"
+                      );
+                      this.article = response.data.article;
+                      this.$router.push("/articulo/"+this.article._id);
+                    } else {
+                      swal(
+                        "Artículo no se a editado bien",
+                        "Ha habido un error en la edición del artículo",
+                        "error"
+                      );
+                    }
+                  })
+                  .catch((error) => {
+                    console.log("ERROR: " + error);
+                  });
+              } else {
+                swal(
+                  "Artículo editado",
+                  "El artículo se ha editado correctamente :)",
+                  "success"
+                );
+                this.article = response.data.article;
+                this.$router.push("/articulo/"+this.article._id);
               }
-            })
-            .catch(error => {
-              console.log(error);
-            });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
-    }
-  }
+    },
+  },
 };
 </script>

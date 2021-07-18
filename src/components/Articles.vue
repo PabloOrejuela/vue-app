@@ -21,11 +21,10 @@
             v-if="!article.image"
           />
         </div>
-
-        <h2>{{ article.title }}</h2>
-
-        <span class="date"> {{ article.date | moment("from", "now") }} </span>
         <router-link :to="{ name: 'article', params: { id: article._id } }">
+        <h2 style="margin-bottom: 10px;">{{ article.title }}</h2>
+        <span class="date"> {{ article.date | moment("from", "now") }} </span>
+        
         leer mas...
         </router-link>
         <div class="clear-fix"></div>

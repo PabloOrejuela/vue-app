@@ -9,3 +9,6 @@ axios
 
 #para las Fechas
 vue-moment
+
+#Para las alertas
+sweetalert

@@ -17,7 +17,8 @@ export default {
       url: Global.url,
       file: "",
       article: new Article("", "", null, ""),
-      submited: false
+      submited: false,
+      isEdit: false
     };
   },
   validations: {
