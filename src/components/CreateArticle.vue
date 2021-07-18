@@ -96,14 +96,27 @@ export default {
             if (response.data.status == "success") {
               
               //subida de archivo
+              if (this.file != null && this.file != 'undefined' && this.file != '') {
+                
+              }
               const formData = new FormData();
               formData.append(
                 'file0',
                 this.file,
                 this.file.name
               );
-              this.$router.push("/blog");
-
+              var articleId = response.data.article._id;
+              axios.post(this.url + 'upload-image/' + articleId, formData)
+                   .then(res => {
+                     if (res.data.article) {
+                       this.article = res.data.article;
+                       this.$router.push("/blog");
+                     }else{
+                       //Mostrar alerta de error
+                     }
+                   }).catch(error => {
+                     console.log('ERROR: '+error);
+                   });
               }
             })
             .catch(error => {
