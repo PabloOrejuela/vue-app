@@ -1,4 +1,4 @@
-class ArticleModel {
+class Article {
     constructor(title, content, date, image){
         this.title = title;
         this.date = null;
@@ -8,4 +8,4 @@ class ArticleModel {
 }
 
 
-export default ArticleModel;
+export default Article;

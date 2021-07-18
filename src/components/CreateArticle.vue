@@ -6,7 +6,7 @@
         <form class="mid-form" v-on:submit.prevent="save()">
           <div class="form-group">
             <label for="title">Título:</label>
-            <input type="text" name="title" v-model="article.title" required />
+            <input type="text" name="title" v-model="article.title" />
             <div v-if="submited && !$v.article.title.required">
               El campo título no puede estar vacío
             </div>
@@ -17,7 +17,6 @@
               type="text"
               name="content"
               v-model="article.content"
-              required
             ></textarea>
             <div v-if="submited && !$v.article.content.required">
               El contenido no puede estar vacío
@@ -45,9 +44,8 @@
 
 <script>
 import SideBar from "./SideBar.vue";
-//import axios from "axios";
 import Global from "../Global";
-import ArticleModel from "../models/ArticleModel";
+import Article from "../models/Article";
 import axios from "axios";
 import { required } from "vuelidate/lib/validators";
 
@@ -59,8 +57,8 @@ export default {
   data() {
     return {
       url: Global.url,
-      file: "",
-      article: new ArticleModel("", "", null, ""),
+      file: '',
+      article: new Article('', '', null, ''),
       submited: false,
     };
   },
@@ -86,24 +84,19 @@ export default {
       if (this.$v.$invalid) {
         return false;
       } else {
-        const formData = new FormData();
-        formData.append(
-          'file0',
-          this.file,
-          this.file.name
-        );
+        
         axios
           .post(this.url + "save", this.article)
           .then(response => {
             if (response.data.status == "success") {
               
               //subida de archivo
-              const formData = new FormData();
+              /*const formData = new FormData();
               formData.append(
                 'file0',
                 this.file,
                 this.file.name
-              );
+              );*/
               this.$router.push("/blog");
 
               }
