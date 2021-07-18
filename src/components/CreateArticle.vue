@@ -84,19 +84,24 @@ export default {
       if (this.$v.$invalid) {
         return false;
       } else {
-        
+        /*const formData = new FormData();
+        formData.append(
+          'file0',
+          this.file,
+          this.file.name
+        );*/
         axios
           .post(this.url + "save", this.article)
           .then(response => {
             if (response.data.status == "success") {
               
               //subida de archivo
-              /*const formData = new FormData();
+              const formData = new FormData();
               formData.append(
                 'file0',
                 this.file,
                 this.file.name
-              );*/
+              );
               this.$router.push("/blog");
 
               }
